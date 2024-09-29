@@ -5,4 +5,4 @@ run game2048.py, use"key_UP","key_LEFT","key_RIGHT","key_DOWN" to move, press sp
 # TO-DO
 combine the game with graphics into one page
 # SCREEN-SHOTS
-![](image.png)
+![output](image.png)
