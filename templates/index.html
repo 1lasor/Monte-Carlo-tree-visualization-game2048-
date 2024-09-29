@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2048 Game</title>
+    <style>
+        .grid-cell {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+        }
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 420px;
+        }
+    </style>
+</head>
+<body>
+    <div id="grid-container" class="grid-container">
+        <!-- 游戏网格将在这里渲染 -->
+    </div>
+
+    <script>
+        // 初始化函数
+        function initMatrix(matrix) {
+            const container = document.getElementById('grid-container');
+            container.innerHTML = ''; // 清空容器
+            matrix.forEach(row => {
+                row.forEach(value => {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.textContent = value || '';
+                    container.appendChild(cell);
+                });
+            });
+        }
+
+        // 从服务器获取矩阵数据并渲染
+        function fetchMatrix() {
+            fetch('/matrix')
+                .then(response => response.json())
+                .then(data => {
+                    initMatrix(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // 页面加载完成后获取矩阵数据
+        window.onload = fetchMatrix;
+
+        // 可以设置一个定时器来定期更新矩阵
+        setInterval(fetchMatrix, 1000); // 每1000毫秒更新一次
+    </script>
+</body>
+</html>
